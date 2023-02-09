@@ -126,25 +126,19 @@
                             
                           </div>
                 
-                          <div class="row m-1">
+                          <div class="row m-1" *ngFor="let x of linkDetails">
                             
                             
             
-                          <button type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="{{this.userdetails.data.icon}}"></i>
-                            <i class="fab fa-twitter"></i>{{this.userdetails.data.title}}</button>
-                        
-                       
-                          
-                          <div class="row m-1">
-                        
-                        <button type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#twiteerForm"><i class="fa-brands fa-twitter"></i> Twitter</button>
-                          
-                      </div>
-                      <div class="row m-1">
+                          <button  type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{x.id}} <i class="{{x.icon}}"></i>
+                            {{x.title}}  </button>
+                            
 
-                        <button type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+                            </div>
                         
-                      </div>
+<!--                        
+                            
+                      
                 
                 
                        
@@ -203,11 +197,15 @@
                               <div class="col">
                                 <label for="profile" class="m-1 form-label">Social Link</label>
                                 <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="link">
-                              </div>
+                                <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="order">
+                                <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="link">
+                           
+                              </div> 
+                                
                             </div>
                            
                           <button type="submit" class=" m-3 btn" >Save changes</button>
-              
+                          
                           </div>
                         </div>
                       </form>
@@ -223,7 +221,7 @@
                 </div>
               </div>
 
-
+</form>
 
 
   </div>

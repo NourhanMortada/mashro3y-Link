@@ -39,7 +39,7 @@ export class DashboardComponent implements  OnInit  {
 
 
   LinksForm = new FormGroup({
-    title:new FormControl("" ,[Validators.required , Validators.minLength(3), Validators.maxLength(10)]),
+    title:new FormControl("noso"),
     link: new FormControl(""),
     order:new FormControl(""),
     icon:new FormControl(""),
@@ -54,44 +54,49 @@ export class DashboardComponent implements  OnInit  {
 
 
   
-  apiresponse:any;
+  Res:any;
 userid:any;
 userdetails:any;
+value:any;
+linkDetails:any;
+Userid:any;
 
 
   AddClientData(form:any){
     
   
-      this.__AuthonticationService.AddLink(form.value).subscribe({
-        next:(response)=> {
-          this.apiresponse = response;
-          console.log(this.apiresponse);
-          console.log(form.value);
-     
+   
+    
+    this._ApiService.getOneLinkShow(this.Userid).subscribe({
+    
+      
+      next: (data:any) => {
         
+        console.log(data);
        
-
-         
-         
+        
+  
+        this.linkDetails = data
+        
+        
+        
+        console.log("noora" ,this.Userid);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+   
+   
        
-         
-         
-         
-
-        
-        
-         
-          
-        },
-        error:(err)=>{
-          console.log(err);
-        },
-      });
+    
+    
         
     
     
   };
-
+ 
 
    
 
@@ -120,32 +125,29 @@ userdetails:any;
 
     
   });
+
+   this._ApiService.getAllLinks().subscribe({
+    
+      
+      next: (data:any) => {
+        
+        console.log(data);
+       
+        
   
-
-  this._ApiService.getOneLinkShow(this.userid).subscribe({
-    next:(data)=> {
-      this.userdetails = data;
-      console.log(this.userdetails.id);
-      
-    
+        this.userdetails = data
+        this.linkDetails=data.data
+        
+        
+        console.log("noora" ,this.linkDetails);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
    
 
-     
-     
-   
-     
-     
-     
-
-    
-    
-     
-      
-    },
-    error:(err)=>{
-      console.log(err);
-    },
-  });
 
   
  

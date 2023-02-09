@@ -51,7 +51,7 @@ export class ApiService {
         'Authorization': 'Bearer'+this._AuthonticationService.Token,
       'Accept-Language': '{{lang_code}}'
       })
-      return this._HttpClient.get("https://mashro3ylink.com/api/v1/clients/links/2" ,{headers : httpheaders});
+      return this._HttpClient.get("https://mashro3ylink.com/api/v1/clients/links/"+id ,{headers : httpheaders});
     }
 
 
@@ -59,7 +59,7 @@ UpdateLink(clientdata:any, id:number):Observable<any>{
   return this._HttpClient.post('https://mashro3ylink.com/api/v1/clients/links/2', clientdata);
 }
 DeleteLink(id:number){
-  return this._HttpClient.delete('https://mashro3ylink.com/api/v1/clients/links/2'+id);
+  return this._HttpClient.delete('https://mashro3ylink.com/api/v1/clients/links/:'+id);
 }
 
 logout(clientdata:any):Observable<any>{
