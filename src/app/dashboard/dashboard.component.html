@@ -62,7 +62,7 @@
                 
                       <div class="add-employee m-2">
                        
-                        <button type="button" class="m-2 w-30 btn   btn-lg" data-bs-toggle="modal"
+                        <button  type="button" class="m-2 w-30 btn   btn-lg" data-bs-toggle="modal"
                           data-bs-target="#exampleModal" #addEmployeeButton>Add Link +</button>
                       </div>
                 
@@ -112,7 +112,7 @@
                           <!-- FIRST NAME -->
                           <div class=" Add-Custom  row m-1" >
                             
-              <button  class="btn btn-lg" data-bs-toggle="modal" href="#exampleModalToggle" >Custom Link +</button>
+              <button type="submit"  class="btn btn-lg" data-bs-toggle="modal" href="#exampleModalToggle" >Custom Link +</button>
                             
                         
                           
@@ -125,16 +125,28 @@
                             </div>
                             
                           </div>
+                          <div *ngFor="let x of linkDetails">
                 
-                          <div class="row m-1" *ngFor="let x of linkDetails">
+                          <div class="row m-1" >
                             
                             
             
-                          <button  type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{x.id}} <i class="{{x.icon}}"></i>
+                          <button (click)='clickbutton(x.title)' type="button" class="btn btn-lg " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="{{x.icon}}"></i>
                             {{x.title}}  </button>
                             
 
                             </div>
+                          </div>
+                        
+                         
+                      </form>
+              
+                    </div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
                         
 <!--                        
                             
@@ -162,13 +174,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel" >Add your Custom Link</h5>
+                      <h5 class="modal-title" id="exampleModalToggle" >Add your Custom Link</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
 
-                      <form [formGroup]="LinksForm" (ngSubmit)="AddClientData(LinksForm)"  >
+                      <form [formGroup]="LinksForm" (ngSubmit)="AddClientData()"  >
                         <div class="row mt-3">
                           <div class="col">
                              <label for="profile" class="form-label">Profile Image</label>
@@ -197,8 +209,7 @@
                               <div class="col">
                                 <label for="profile" class="m-1 form-label">Social Link</label>
                                 <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="link">
-                                <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="order">
-                                <input type="text" class="m-1 form-control" placeholder="https:www.example.com" formControlName="link">
+                               
                            
                               </div> 
                                 
@@ -212,7 +223,7 @@
               
                       
               
-                     
+                    
                     
                     
                     </div>
@@ -221,7 +232,7 @@
                 </div>
               </div>
 
-</form>
+
 
 
   </div>

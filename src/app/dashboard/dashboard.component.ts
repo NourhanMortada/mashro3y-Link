@@ -22,7 +22,10 @@ export class DashboardComponent implements  OnInit  {
 
   constructor(private  _ApiService:ApiService ,
     private __AuthonticationService:AuthonticationService,
-    private _ActivatedRoute: ActivatedRoute, ){
+    private _ActivatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+     ){
+      
       
      
     }
@@ -30,8 +33,9 @@ export class DashboardComponent implements  OnInit  {
   userLogin: any;
   userName: any;
   title:any;
+  
 
-  // @ViewChild('fileInput') fileInput:any;
+  @ViewChild('fileInput') fileInput:any;
  
 
  
@@ -39,7 +43,7 @@ export class DashboardComponent implements  OnInit  {
 
 
   LinksForm = new FormGroup({
-    title:new FormControl("noso"),
+    title:new FormControl(""),
     link: new FormControl(""),
     order:new FormControl(""),
     icon:new FormControl(""),
@@ -62,49 +66,68 @@ linkDetails:any;
 Userid:any;
 
 
-  AddClientData(form:any){
-    
-  
-   
-    
-    this._ApiService.getOneLinkShow(this.Userid).subscribe({
-    
-      
-      next: (data:any) => {
-        
-        console.log(data);
+
+
+
+  clickbutton(x:any){
+    this._ApiService.getOneLinkShow(this.Userid)
+      this.Userid=x;
        
         
+        
+        
+      console.log("el-id" ,this.Userid);
+    
   
-        this.linkDetails = data
-        
-        
-        
-        console.log("noora" ,this.Userid);
-        
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-   
-   
-       
-    
-    
-        
-    
-    
-  };
+  
+
+  }
  
 
    
 
 
   
+  reso:any;
+  d:any;
   
+
+  AddClientData(){
+    let x =this.LinksForm;
+    console.log(x)
+    
+    this._ApiService.AddLink(x.value).subscribe({
+      next:(response:any)=>{
+        
+        this.linkDetails=response.data; 
+        console.log("addlink", this.linkDetails)
+      }
+    }) 
+  }
   
- 
+
+
+  
+  sendClientData(form:any){
+    
+   
+
+
+
+    // this.__AuthonticationService.AddLink(form.value).subscribe({
+    //   next:(response:any)=>{
+        
+
+    //       this.reso=response;
+    //       this.linkDetails=this.LinksForm;
+    //       console.log(this.linkDetails.title)
+        
+    //     console.log(this.reso)
+  
+    //   }
+  
+    // })
+  }
 
  
 
@@ -139,13 +162,21 @@ Userid:any;
         this.linkDetails=data.data
         
         
-        console.log("noora" ,this.linkDetails);
+        // console.log("noora" ,this.linkDetails);
         
       },
       error: (err) => {
         console.log(err);
       },
     });
+
+    // this.LinksForm = this.fb.group({
+    //   title:this.fb.control(''),
+    //   link:this.fb.control('')
+    // })
+    
+   
+    
    
 
 

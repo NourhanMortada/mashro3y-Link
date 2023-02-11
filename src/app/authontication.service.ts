@@ -16,11 +16,12 @@ export class AuthonticationService {
   userName:string="";
   Token:any;
   data2:any;
+  Data:any;
 
   constructor (private _HttpClien: HttpClient){
      this.Token = localStorage.getItem('Token');
-    let Data:any= localStorage.getItem('Data'); 
-    this.data2 = localStorage.getItem("datatany");
+    this.Data= localStorage.getItem('Data'); 
+    
   
     if (this.Token !== null) { 
     let userData: any = jwtDecode(this.Token);
@@ -28,7 +29,7 @@ export class AuthonticationService {
     console.log(userData)
     console.log(clientdata)
      
-      this.userName = Data;
+      this.userName = this.Data;
     
     }
     this.isLogin.next(this.Token);
@@ -47,21 +48,6 @@ export class AuthonticationService {
   
 
 
-AddLink(clientdata:any):Observable<any>{
-  console.log("nono",clientdata);
-  
-    
-  let httpheaders = new HttpHeaders({
-    'Accept': 'application/json',
-  'Content-Type' : 'application/json'
-  
-  })
-
-
-  return this._HttpClien.post('https://mashro3ylink.com/api/v1/clients/links' ,  clientdata )
-  
-
-}
 }
 
 

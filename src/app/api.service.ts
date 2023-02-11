@@ -15,7 +15,7 @@ export class ApiService {
  
   
   constructor(private _HttpClient:HttpClient , private _AuthonticationService:AuthonticationService) {
-     this.token= localStorage.getItem('Token');
+     this.token= this._AuthonticationService.Token;
      let dataaa= this.token.data;
      
     
@@ -38,6 +38,25 @@ export class ApiService {
   }
    
 
+  AddLink(clientdata:any):Observable<any>{
+    console.log(this._AuthonticationService.Token)
+  
+  
+
+    let httpheaders = new HttpHeaders({
+      'Accept': 'application/json',
+    'Content-Type' : 'application/json',
+    'Authorization' : 'Bearer'+this._AuthonticationService.Token,
+    'Accept-Language': '{{lang_code}}'
+    
+    
+    })
+  
+  
+    return this._HttpClient.post('https://mashro3ylink.com/api/v1/clients/links' , {headers : httpheaders}, clientdata )
+    
+  
+  }
 
 
  
@@ -48,18 +67,33 @@ export class ApiService {
       let httpheaders = new HttpHeaders({
       'Accept':' application/json',
         'Content-Type': 'application/json' ,
-        'Authorization': 'Bearer'+this._AuthonticationService.Token,
+        'Authorization': 'Bearer'+this.token,
       'Accept-Language': '{{lang_code}}'
       })
       return this._HttpClient.get("https://mashro3ylink.com/api/v1/clients/links/"+id ,{headers : httpheaders});
     }
 
 
-UpdateLink(clientdata:any, id:number):Observable<any>{
-  return this._HttpClient.post('https://mashro3ylink.com/api/v1/clients/links/2', clientdata);
+UpdateLink(id:number):Observable<any>{
+  let httpheaders = new HttpHeaders({
+    'Accept':' application/json',
+      'Content-Type': 'application/json' ,
+      'Authorization': 'Bearer'+this.token,
+    'Accept-Language': '{{lang_code}}'
+    })
+    console.log("update Token", this.token)
+
+  return this._HttpClient.put('https://mashro3ylink.com/api/v1/clients/links/'+id,{headers : httpheaders});
+  
 }
-DeleteLink(id:number){
-  return this._HttpClient.delete('https://mashro3ylink.com/api/v1/clients/links/:'+id);
+DeleteLink(id:any){
+  let httpheaders = new HttpHeaders({
+    'Accept':' application/json',
+      'Content-Type': 'application/json' ,
+      'Authorization': 'Bearer'+this.token,
+    'Accept-Language': '{{lang_code}}'
+    })
+  return this._HttpClient.delete('https://mashro3ylink.com/api/v1/clients/links/'+id, {headers : httpheaders});
 }
 
 logout(clientdata:any):Observable<any>{
