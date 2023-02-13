@@ -1,10 +1,10 @@
 
-<div class="container-fluid g-0 p-2">
+<div class="container-fluid g-0 p-2" *ngFor="let x of linkDetails" >
 
     <div class="row g-0">
 
         <div class="table-card col-md-2 d-flex justify-content-center align-items-center">
-            <img src="../../assets/imge/R.jpg" alt="Profile Image" class="profile">
+            <img [src]="x.icon_image" alt="Profile Image" class="profile">
         </div>
         
 
@@ -13,14 +13,14 @@
             <div class="row g-0">
 
                 <div class="col-md-10 text-center">
-                    <span style="color: #4c547d;">Link Details</span>
+                    <span style="color: #4c547d;">no.{{x.id}}</span>
                 </div> 
 
                 <div class="col-md-2 d-flex justify-content-center align-items-center">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editForm"
+                        <button (click)="edit(clientToUpdate)"  type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editForm"
                             >Edit</button>
-                        <button type="button" class="btn btn-outline-danger"
+                        <button (click)="deletebutton(x.id)"  type="button" class="btn btn-outline-danger"
                             >Delete</button>
                     </div>
                 </div>
@@ -35,14 +35,14 @@
                         <thead class="text-center fs-5 fst-italic text-secondary">
                          
                         </thead>
-                        <tbody>
+                        <tbody >
                             <tr>
                                 <td>Social Media Name</td>
-                                <td style="color: #4c547d;">facebook</td>
+                                <td style="color: #4c547d;">{{x.title}}</td>
                             </tr>
                             <tr>
                                 <td>Social Media Link</td>
-                                <td style="color: #4c547d;">www.facebook.com</td>
+                                <td style="color: #4c547d;">{{x.link}}</td>
                             </tr>
                           
                         </tbody>
@@ -61,6 +61,7 @@
 </div>
 
 
+
 <!-- EditForm -->
 
 
@@ -74,7 +75,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="LinksForm" (ngSubmit)="sendClientData(LinksForm)">
+          <form [formGroup]="LinksForm" (ngSubmit)="allData()" >
             <div class="row mt-3">
                 <div class="col">
                    <label for="profile" class="form-label">Profile Image</label>
@@ -92,23 +93,25 @@
                   
     
             <div class="row">
-                <div class="col">
-                  <label for="profile" class="m-1 form-label">Link name</label>
-                  <input type="text" class="m-1 form-control" placeholder="ex:facebook" formControlName="link">
+                <div class="col  form-group">
+                  <label for="name"  class="m-1 form-label">Link name</label>
+                  <input type="text"   class="m-1 form-control" placeholder="ex:facebook" formControlName="title">
                 </div>
               </div>
             <div class="row">
                 <div class="col">
-                  <label for="profile" class="m-1 form-label">Link</label>
-                  <input type="text" class="m-1 form-control" placeholder="https://www.example.com" formControlName="link">
+                  <label for="name" class="m-1 form-label">Link</label>
+                  <input type="text"  class="m-1 form-control" placeholder="https://www.example.com" formControlName="link">
                 </div>
               </div>
-          </form>
-        </div>
-        <div class="modal-footer">
+              <div class="modal-footer">
           
-          <button type="submit" class="btn btn-primary">Update</button>
-        </div>
+                <button  type="submit" class="btn btn-primary">Update</button>
+              </div>
+          </form>
+        
+      
+      </div>
       </div>
     </div>
   </div>

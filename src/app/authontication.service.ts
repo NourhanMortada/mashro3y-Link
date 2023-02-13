@@ -15,16 +15,21 @@ export class AuthonticationService {
    
   userName:string="";
   Token:any;
+  data2:any;
+  Data:any;
 
   constructor (private _HttpClien: HttpClient){
      this.Token = localStorage.getItem('Token');
-    let Data:any= localStorage.getItem('Data'); 
+    this.Data= localStorage.getItem('Data'); 
+    
   
     if (this.Token !== null) { 
     let userData: any = jwtDecode(this.Token);
+    
     console.log(userData)
+   
      
-      this.userName = Data;
+      this.userName = this.Data;
     
     }
     this.isLogin.next(this.Token);
@@ -40,22 +45,9 @@ export class AuthonticationService {
      return  this._HttpClien.post('https://mashro3ylink.com/api/v1/clients/auth/login', userData);
   }
 
-
-
-
-AddLink(clientdata:any):Observable<any>{
-    
-  let httpheaders = new HttpHeaders({
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer'+this.Token,
-    'Accept-Language': '{{lang_code}}'
-  })
-
-  return this._HttpClien.post('https://mashro3ylink.com/api/v1/clients/links' , {headers : httpheaders}, clientdata )
   
 
-}
+
 }
 
 

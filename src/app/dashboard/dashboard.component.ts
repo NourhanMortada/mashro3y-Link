@@ -18,88 +18,125 @@ import { from } from 'rxjs';
 })
 export class DashboardComponent implements  OnInit  {
 
-  
+icon_image:any;
+
+getFile(event:any){
+this.icon_image = event.target.files[0];
+}
+  off:any;
+logout(){
+  this._ApiService.REMOVEDATA();
+  this._router.navigate(['/register'])
+
+}
 
   constructor(private  _ApiService:ApiService ,
     private __AuthonticationService:AuthonticationService,
-    private _ActivatedRoute: ActivatedRoute, ){
-      
+    private _ActivatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    private _router:Router
+     ){
+     
      
     }
 
   userLogin: any;
   userName: any;
   title:any;
-
-  // @ViewChild('fileInput') fileInput:any;
- 
-
- 
   
+  
+  
+  @ViewChild('fileInput') fileInput:string="";
+ 
+
+ 
+  imgpath:string='/home/mashro3ylink/public_html/app/Http/Controllers/API/Client/LinkAPIController.php';
 
 
   LinksForm = new FormGroup({
-    title:new FormControl("" ,[Validators.required , Validators.minLength(3), Validators.maxLength(10)]),
+    title:new FormControl(""),
     link: new FormControl(""),
-    order:new FormControl(""),
-    icon:new FormControl(""),
-    icon_image:new FormControl(""),
-    background_color:new FormControl(""),
+    order:new FormControl("1"),
+    icon:new FormControl("fa fa -facebook"),
+    // icon_image:new FormControl(""),
+    background_color:new FormControl("#ffddee"),
     text_color:new FormControl(""),
-    active_type_icon:new FormControl(""),
+    active_type_icon:new FormControl("icon"),
     custom_css:new FormControl(""),
     button_id:new FormControl(""),
-    is_active:new FormControl(""),
+    is_active:new FormControl("1"),
   });
 
-
   
-  apiresponse:any;
+  Res:any;
 userid:any;
 userdetails:any;
+value:any;
+linkDetails:any;
+Userid:any;
 
 
-  AddClientData(form:any){
+
+
+
+  clickbutton(x:any){
+    this._ApiService.getOneLinkShow(this.Userid)
+      this.Userid=x;
+       
+        
+        
+        
+      console.log("el-id" ,this.Userid);
     
   
-      this.__AuthonticationService.AddLink(form.value).subscribe({
-        next:(response)=> {
-          this.apiresponse = response;
-          console.log(this.apiresponse);
-          console.log(form.value);
-     
-        
-       
+  
 
-         
-         
-       
-         
-         
-         
-
-        
-        
-         
-          
-        },
-        error:(err)=>{
-          console.log(err);
-        },
-      });
-        
-    
-    
-  };
-
+  }
+ 
 
    
 
 
   
+  reso:any;
+  d:any;
   
+
+  AddClientData(form:any){
+   
+    
+    this._ApiService.AddLink(form.value).subscribe({
+      next:(response:any)=>{
+        this.imgpath;
+        this.linkDetails=form.value;
+        console.log("addlink", this.linkDetails)
+      }
+    }) 
+  }
   
- 
+
+
+  
+  sendClientData(form:any){
+    
+   
+
+
+
+    // this.__AuthonticationService.AddLink(form.value).subscribe({
+    //   next:(response:any)=>{
+        
+
+    //       this.reso=response;
+    //       this.linkDetails=this.LinksForm;
+    //       console.log(this.linkDetails.title)
+        
+    //     console.log(this.reso)
+  
+    //   }
+  
+    // })
+  }
 
  
 
@@ -116,44 +153,47 @@ userdetails:any;
       this.userLogin = newValue;
       console.log('susbsribe run');
       this.userName = this.__AuthonticationService.userName;
+
+  
     },
 
     
   });
-  
 
-  this._ApiService.getOneLinkShow(this.userid).subscribe({
-    next:(data)=> {
-      this.userdetails = data;
-      console.log(this.userdetails.id);
+   this._ApiService.getAllLinks().subscribe({
+    
       
-    
-   
-
-     
-     
-   
-     
-     
-     
-
-    
-    
-     
-      
-    },
-    error:(err)=>{
-      console.log(err);
-    },
-  });
-
+      next: (data:any) => {
+        
+        console.log(data);
+       
+        
   
- 
+        this.userdetails = data
+        this.linkDetails=data.data
+        
+        
+        // console.log("noora" ,this.linkDetails);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
 
+   
    
  }
 
- 
+ submitData(){
+  let formdata= new FormData();
+  formdata.set("icon_image", this.icon_image  )
+  this._ApiService.AddLink(formdata).subscribe({
+    next:(response)=>{
+      
+    }
+  })
+  }
  
   
 

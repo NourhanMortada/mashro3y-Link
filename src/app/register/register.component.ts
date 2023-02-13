@@ -49,6 +49,7 @@ import { Token } from '@angular/compiler';
 
            localStorage.setItem('Token' , response.data.access_token);
            localStorage.setItem('Data', response.data.user.name);
+           
 
            
            
